@@ -1,0 +1,224 @@
+# Base configuration
+
+app: 
+  name: foodaway
+  message: "API for foodaway"
+  jwtExpirationMode: eod
+  jwtExpirationInMs: 86400000
+  sessionTimeoutInSecond: 3600
+  adminSessionTimeoutInSecond: 900
+  fetch: 
+    size: 9999
+
+server: 
+  port: 8080
+  servlet:
+    context-path: /api/v1
+  tomcat:
+    max-connections: 10000
+    max-http-form-post-size: 2MB
+    max-swallow-size: 2MB
+    threads:
+      max: 200
+
+logbook: 
+  include: 
+    - /api/v1/**
+  exclude: 
+    - /api/v1/actuator/**
+  write: 
+    level: INFO
+  filter.enabled: true
+  secure-filter.enabled: true
+  format.style: http
+  strategy: body-only-if-status-at-least
+  minimum-status: 400
+  obfuscate:
+    headers:
+      - Authorization
+      - X-Secret
+      - token
+    parameters:
+      - access_token
+      - password
+      - email
+    write:
+      chunk-size: 1000
+
+# Middleware configuration
+middleware: 
+  requestId: 
+    header: 
+      name: X-Request-Id
+
+---
+
+# Default configuration
+
+spring:
+  profiles:
+    active: "dev"
+
+logbook: 
+  format.style: json
+---
+ 
+spring:
+  profiles: test
+  main: 
+   banner-mode: off
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      # Hibernate ddl auto (create, create-drop, validate, update, none)
+      ddl-auto: update
+    properties: 
+      hibernate: 
+        # The SQL dialect makes Hibernate generate better SQL for the chosen database
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hibernate.jdbc.batch_size: 20
+        hibernate.cache.use_query_cache: false
+        hibernate.cache.use_second_level_cache: false
+        hibernate.cache.use_structured_entries: false
+        hibernate.cache.use_minimal_puts: false
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/foodaway?useSSL=false&useTimezone=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta
+    username: root
+    password: secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # Initialize the datasource with available DDL and DML scripts
+    # initialization-mode possible values: always/never
+    initialization-mode: never
+  jackson: 
+    serialization: 
+      WRITE_DATES_AS_TIMESTAMPS: false
+      FAIL_ON_EMPTY_BEANS: false
+mail: 
+  server: 
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    personal: App Support
+  smtp: 
+    auth: true
+    quitwait: false
+    starttls: 
+      enable: true
+# Logging
+logging: 
+  config: classpath:log4j2/log4j2.yml
+name: test-YAML
+environment: testing
+# servers:
+#  - www.abc.test.com
+#  - www.xyz.test.com
+  
+---
+ 
+spring:
+  profiles: prod
+  main: 
+   banner-mode: off
+  jpa:
+    database: MYSQL
+    show-sql: false
+    hibernate:
+      # Hibernate ddl auto (create, create-drop, validate, update, none)
+      ddl-auto: update
+    properties: 
+      hibernate: 
+        # The SQL dialect makes Hibernate generate better SQL for the chosen database
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hibernate.jdbc.batch_size: 20
+        hibernate.cache.use_query_cache: false
+        hibernate.cache.use_second_level_cache: false
+        hibernate.cache.use_structured_entries: false
+        hibernate.cache.use_minimal_puts: false
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/foodaway?useSSL=false&useTimezone=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta
+    username: root
+    password: secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # Initialize the datasource with available DDL and DML scripts
+    # initialization-mode possible values: always/never
+    initialization-mode: never
+  jackson: 
+    serialization: 
+      WRITE_DATES_AS_TIMESTAMPS: false
+      FAIL_ON_EMPTY_BEANS: false
+mail: 
+  server: 
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    personal: App Support
+  smtp: 
+    auth: true
+    quitwait: false
+    starttls: 
+      enable: true
+# Logging
+logging: 
+  config: classpath:log4j2/log4j2-production.yml
+name: prod-YAML
+environment: production
+# servers:
+#   - www.abc.com
+#   - www.xyz.com
+    
+---
+ 
+spring:
+  profiles: dev
+  main: 
+   banner-mode: off
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      # Hibernate ddl auto (create, create-drop, validate, update, none)
+      ddl-auto: update
+    properties: 
+      hibernate: 
+        # The SQL dialect makes Hibernate generate better SQL for the chosen database
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hibernate.jdbc.batch_size: 20
+        hibernate.cache.use_query_cache: false
+        hibernate.cache.use_second_level_cache: false
+        hibernate.cache.use_structured_entries: false
+        hibernate.cache.use_minimal_puts: false
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/foodaway?useSSL=false&useTimezone=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta
+    username: root
+    password: secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # Initialize the datasource with available DDL and DML scripts
+    # initialization-mode possible values: always/never
+    initialization-mode: never
+  jackson: 
+    serialization: 
+      WRITE_DATES_AS_TIMESTAMPS: false
+      FAIL_ON_EMPTY_BEANS: false
+mail: 
+  server: 
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    personal: App Support
+  smtp: 
+    auth: true
+    quitwait: false
+    starttls: 
+      enable: true
+# Logging
+logging: 
+  config: classpath:log4j2/log4j2.yml
+name: ${DEV_NAME:dev-YAML}
+environment: development
+# servers:
+#     - www.abc.dev.com
+#     - www.xyz.dev.com
