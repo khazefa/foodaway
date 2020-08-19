@@ -1,2 +1,0 @@
-# foodaway
-Foodaway Backend

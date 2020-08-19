@@ -1,9 +1,8 @@
 HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -27,6 +26,9 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
@@ -38,14 +40,12 @@ out/
 .#*
 .*.md.html
 .DS_Store
-.gradle
 .metadata
 .recommenders
 .settings
 /code
 MANIFEST.MF
 _site/
-activemq-data
 bin
 build
 build.log
@@ -62,6 +62,3 @@ target
 transaction-logs
 .flattened-pom.xml
 secrets.yml
-.gradletasknamecache
-
-!gradle/wrapper/gradle-wrapper.jar
