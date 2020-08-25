@@ -6,7 +6,7 @@ public final class SecurityConstants {
         throw new IllegalStateException("Utility class");
       }
 
-    static final String SECRET = "SecretKeyToGenJWTs";
+    static final String SECRET = "IKnowWhatYouDidLastSummerBray";
     static final String TOKEN_PREFIX = "Bearer ";
     static final String HEADER_STRING = "Authorization";
     static final String SIGN_UP_URL = "/users/sign-up";
