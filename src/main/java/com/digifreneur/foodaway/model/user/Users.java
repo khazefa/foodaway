@@ -1,4 +1,4 @@
-package com.digifreneur.foodaway.model;
+package com.digifreneur.foodaway.model.user;
 
 import java.io.Serializable;
 import java.util.Date;

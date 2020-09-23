@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.digifreneur.foodaway.model.core.AuditModel;
+import com.digifreneur.foodaway.model.user.Users;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
